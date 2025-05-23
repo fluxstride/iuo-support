@@ -22,7 +22,7 @@ API.interceptors.response.use(
         // Make a request to server to refresh the token.
 
         await axios.post(
-          "http://localhost:5000/auth/refresh",
+          `${import.meta.env.VITE_API_URL}/auth/refresh`,
           {},
           {
             withCredentials: true,
