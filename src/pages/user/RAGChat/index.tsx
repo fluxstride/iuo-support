@@ -7,10 +7,12 @@ import { Link } from "react-router";
 import iuoLogo from "@/assets/iuo-logo.png";
 import Markdown from "react-markdown";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function RAGChat() {
   const { messages, input, handleInputChange, handleSubmit, status } = useChat({
     maxSteps: 3,
-    api: "http://localhost:5000/chat",
+    api: `${API_URL}/chat`,
   });
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
