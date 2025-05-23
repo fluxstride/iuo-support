@@ -2,7 +2,7 @@ import { getMessagesCount } from "@/api/inbox";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Dashboard() {
-  const { isFetching, data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["messagesCount"],
     queryFn: async () => {
       const response = await getMessagesCount();

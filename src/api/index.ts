@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 export const API = axios.create({
@@ -6,9 +7,9 @@ export const API = axios.create({
 });
 
 API.interceptors.response.use(
-  (response) => response, // Directly return successful responses.
-  async (error) => {
-    const originalRequest = error.config;
+  (response: any) => response, // Directly return successful responses.
+  async (error: any) => {
+    const originalRequest: any = error.config;
 
     if (
       error.response.status === 401 &&
@@ -29,7 +30,7 @@ API.interceptors.response.use(
         );
 
         return API(originalRequest); // Retry the original request with the new access token.
-      } catch (refreshError) {
+      } catch (refreshError: any) {
         // Handle refresh token errors by clearing stored tokens and redirecting to the login page.
         console.error("Token refresh failed:", refreshError);
         // localStorage.removeItem("accessToken");

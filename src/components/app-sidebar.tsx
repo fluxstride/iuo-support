@@ -1,9 +1,9 @@
 import {
   Brain,
-  File,
+  // File,
   Home,
   Inbox,
-  LucideSchool,
+  // LucideSchool,
   Sparkle,
   User,
 } from "lucide-react";
