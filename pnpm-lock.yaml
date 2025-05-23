@@ -50,6 +50,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.74.4
         version: 5.74.4(react@19.1.0)
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -99,9 +102,6 @@ importers:
       '@eslint/js':
         specifier: ^9.22.0
         version: 9.25.0
-      '@types/axios':
-        specifier: ^0.14.4
-        version: 0.14.4
       '@types/node':
         specifier: ^22.14.1
         version: 22.14.1
@@ -1132,10 +1132,6 @@ packages:
     resolution: {integrity: sha512-mAbxw60d4ffQ4qmRYfkO1xzRBPUEf/72Dgo3qqea0J66nIKuDTLEqQt0ku++SDFlMGMnB6uKDnEG1xD/TDse4Q==}
     peerDependencies:
       react: ^18 || ^19
-
-  '@types/axios@0.14.4':
-    resolution: {integrity: sha512-9JgOaunvQdsQ/qW2OPmE5+hCeUB52lQSolecrFrthct55QekhmXEwT203s20RL+UHtCQc15y3VXpby9E7Kkh/g==}
-    deprecated: This is a stub types definition. axios provides its own type definitions, so you do not need this installed.
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3277,12 +3273,6 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.74.4
       react: 19.1.0
-
-  '@types/axios@0.14.4':
-    dependencies:
-      axios: 1.9.0
-    transitivePeerDependencies:
-      - debug
 
   '@types/babel__core@7.20.5':
     dependencies:
