@@ -1,4 +1,5 @@
 import {
+  AlertOctagon,
   Brain,
   // File,
   Home,
@@ -42,11 +43,16 @@ const items = [
     url: "train",
     icon: Brain,
   },
-  // {
-  //   title: "Knowledge Base",
-  //   url: "knowledge-base",
-  //   icon: Brain,
-  // },
+  {
+    title: "Knowledge Base",
+    url: "knowledge-base",
+    icon: Brain,
+  },
+  {
+    title: "Query Flags",
+    url: "query-flags",
+    icon: AlertOctagon,
+  },
   {
     title: "Inbox",
     url: "inbox",

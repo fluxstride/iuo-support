@@ -47,6 +47,47 @@ const passwordChangeFormShema = z
   });
 
 const Profile = () => {
+  return (
+    <div>
+      <h1 className="text-xl font-medium">Profile Information</h1>
+
+      <Tabs defaultValue="account" className="mt-4">
+        <TabsList className="sm:w-80">
+          <TabsTrigger value="account" className="cursor-pointer">
+            Account
+          </TabsTrigger>
+          <TabsTrigger value="password" className="cursor-pointer">
+            Password
+          </TabsTrigger>
+        </TabsList>
+
+        <div className="mt-2">
+          <TabsContent value="account">
+            <h2 className="text-lg font-medium">Account</h2>
+
+            <p className="mt-1">
+              Make changes to your account here. Click save when you're done.
+            </p>
+            <ProfileUpdateForm />
+          </TabsContent>
+
+          <TabsContent value="password">
+            <h2 className="text-lg font-medium">Password</h2>
+
+            <p className="mt-1">
+              Change your password here. After saving, you'll be logged out.
+            </p>
+            <PasswordChangeForm />
+          </TabsContent>
+        </div>
+      </Tabs>
+    </div>
+  );
+};
+
+export default Profile;
+
+const ProfileUpdateForm = () => {
   const { user, setUser } = useAuth();
 
   const profileForm = useForm<z.infer<typeof ProfileFormSchema>>({
@@ -71,7 +112,55 @@ const Profile = () => {
 
   const onSubmitProfileUpdate = (data: z.infer<typeof ProfileFormSchema>) =>
     updateProfile(data as unknown as any);
+  return (
+    <Form {...profileForm}>
+      <form onSubmit={profileForm.handleSubmit(onSubmitProfileUpdate)}>
+        <div className="flex flex-col gap-4 w-full sm:max-w-2xl mt-3">
+          <FormField
+            control={profileForm.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Name</FormLabel>
+                <FormControl>
+                  <Input {...field} autoComplete="username" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
+          <FormField
+            control={profileForm.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Email</FormLabel>
+                <FormControl>
+                  <Input {...field} autoComplete="username" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="role" className="text-base">
+              Role
+            </Label>
+            <Input id="role" value={user.role} disabled />
+          </div>
+
+          <Button className="w-fit" size="lg" disabled={isProfileUpdatePending}>
+            Save changes
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+
+const PasswordChangeForm = () => {
   const passwordChangeForm = useForm<z.infer<typeof passwordChangeFormShema>>({
     resolver: zodResolver(passwordChangeFormShema),
     defaultValues: {
@@ -98,153 +187,62 @@ const Profile = () => {
   ) => changeProfilePassword(data as unknown as any);
 
   return (
-    <div>
-      <h1 className="text-xl font-medium">Profile Information</h1>
+    <Form {...passwordChangeForm}>
+      <form onSubmit={passwordChangeForm.handleSubmit(onSubmitPasswordReset)}>
+        <div className="flex flex-col gap-4 w-full sm:max-w-2xl mt-3">
+          <FormField
+            control={passwordChangeForm.control}
+            name="currentPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Current Password</FormLabel>
+                <FormControl>
+                  <Input {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      <Tabs defaultValue="account" className="mt-4">
-        <TabsList className="sm:w-80">
-          <TabsTrigger value="account" className="cursor-pointer">
-            Account
-          </TabsTrigger>
-          <TabsTrigger value="password" className="cursor-pointer">
-            Password
-          </TabsTrigger>
-        </TabsList>
+          <FormField
+            control={passwordChangeForm.control}
+            name="newPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">New Password</FormLabel>
+                <FormControl>
+                  <Input {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="mt-2">
-          <TabsContent value="account">
-            <h2 className="text-lg font-medium">Account</h2>
+          <FormField
+            control={passwordChangeForm.control}
+            name="confirmNewPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">
+                  Confirm New Password
+                </FormLabel>
+                <FormControl>
+                  <Input {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-            <p className="mt-1">
-              Make changes to your account here. Click save when you're done.
-            </p>
-            <Form {...profileForm}>
-              <form onSubmit={profileForm.handleSubmit(onSubmitProfileUpdate)}>
-                <div className="flex flex-col gap-4 w-full sm:max-w-2xl mt-3">
-                  <FormField
-                    control={profileForm.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">Name</FormLabel>
-                        <FormControl>
-                          <Input {...field} autoComplete="username" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={profileForm.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">Email</FormLabel>
-                        <FormControl>
-                          <Input {...field} autoComplete="username" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="role" className="text-base">
-                      Role
-                    </Label>
-                    <Input id="role" value={user.role} disabled />
-                  </div>
-
-                  <Button
-                    className="w-fit"
-                    size="lg"
-                    disabled={isProfileUpdatePending}
-                  >
-                    Save changes
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </TabsContent>
-
-          <TabsContent value="password">
-            <h2 className="text-lg font-medium">Password</h2>
-
-            <p className="mt-1">
-              Change your password here. After saving, you'll be logged out.
-            </p>
-
-            <Form {...passwordChangeForm}>
-              <form
-                onSubmit={passwordChangeForm.handleSubmit(
-                  onSubmitPasswordReset,
-                )}
-              >
-                <div className="flex flex-col gap-4 w-full sm:max-w-2xl mt-3">
-                  <FormField
-                    control={passwordChangeForm.control}
-                    name="currentPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">
-                          Current Password
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} type="password" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={passwordChangeForm.control}
-                    name="newPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">
-                          New Password
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} type="password" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={passwordChangeForm.control}
-                    name="confirmNewPassword"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-base">
-                          Confirm New Password
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} type="password" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button
-                    className="w-fit cursor-pointer"
-                    size="lg"
-                    disabled={isPasswordResetPending}
-                  >
-                    Update Password
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </TabsContent>
+          <Button
+            className="w-fit cursor-pointer"
+            size="lg"
+            disabled={isPasswordResetPending}
+          >
+            Update Password
+          </Button>
         </div>
-      </Tabs>
-    </div>
+      </form>
+    </Form>
   );
 };
-
-export default Profile;

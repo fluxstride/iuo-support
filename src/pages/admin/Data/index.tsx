@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DataCategories } from "./DataCategories";
 
 const DataPage = () => {
   return (
@@ -31,25 +32,33 @@ const DataPage = () => {
 
         <div className="mt-2">
           <TabsContent value="categories">
-            <h2 className="text-xl font-medium">Create Information Category</h2>
+            <h2 className="text-xl font-medium">Manage Categories</h2>
             <div className="grid w-full items-center gap-2 mt-2">
-              <Label htmlFor="picture" className="text-base">
-                Add Text Data
+              <Label htmlFor="picture" className="text-base font-normal">
+                Create and manage categories for your training data.
               </Label>
               <Input
                 id="textData"
-                placeholder="Enter category name"
+                placeholder="New Category Name"
                 className="max-w-sm"
               />
               <Button className="w-fit mt-2">Add Category</Button>
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-xl font-medium">Existing Categories</h2>
+              <div className="mt-4">
+                <DataCategories />
+              </div>
             </div>
           </TabsContent>
 
           <TabsContent value="upload">
             <h2 className="text-xl font-medium">Upload Document</h2>
             <div className="grid w-full items-center gap-2 mt-2">
-              <Label htmlFor="picture" className="text-base">
-                Add Text Data
+              <Label htmlFor="picture" className="text-base font-normal">
+                Drag and drop text files here or browse to upload. Ensure files
+                are in plain text format (.txt).
               </Label>
               <Input
                 id="textData"

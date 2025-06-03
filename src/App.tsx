@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Profile from "./pages/admin/Profile";
-import RAGChat from "./pages/user/RAGChat";
+import AISupportChat from "./pages/user/AISupportChat";
 import Home from "./pages/Home";
 import Train from "./pages/admin/Train";
 import Inbox from "./pages/admin/Inbox";
@@ -16,6 +16,7 @@ import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import TalkToHuman from "./components/TalkToHuman";
 import DataPage from "./pages/admin/Data";
+import QueryFlags from "./pages/admin/QueryFlags";
 
 export const queryClient = new QueryClient();
 
@@ -24,7 +25,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<RAGChat />} />
+          <Route path="" element={<AISupportChat />} />
           <Route path="home" element={<Home />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="reset-password/:token" element={<ResetPassword />} />
@@ -51,6 +52,7 @@ function App() {
             <Route path="" element={<Dashboard />} />
             <Route path="train" element={<Train />} />
             <Route path="knowledge-base" element={<DataPage />} />
+            <Route path="query-flags" element={<QueryFlags />} />
             <Route path="inbox" element={<Inbox />} />
             <Route path="admins" element={<Admins />} />
             <Route path="profile" element={<Profile />} />
